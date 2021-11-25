@@ -1,19 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  Copyright 2020 The Android Open Source Project
-
-  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
-  in compliance with the License. You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software distributed under the License
-  is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
-  or implied. See the License for the specific language governing permissions and limitations under
-  the License.
-  -->
 <resources>
-    <string name="app_name">Jetsnack</string>
+    <string name="app_name">Snacky</string>
     <string name="label_back">Back</string>
 
     <!-- Home Tabs -->
@@ -25,9 +12,11 @@
     <!-- Home -->
     <string name="label_filters">Filters</string>
     <string name="label_select_delivery">Select delivery address</string>
+    <string name="label_destinations">Destinations</string>
+
 
     <!-- Search -->
-    <string name="search_jetsnack">Search Jetsnack</string>
+    <string name="search_snacky">Search Snacky</string>
     <string name="search_no_matches">No matches for “%1s”</string>
     <string name="search_no_matches_retry">Try broadening your search</string>
     <string name="search_count">%1d items</string>
@@ -60,8 +49,8 @@
     <!-- Quantity Selector -->
     <string name="label_increase">Increase</string>
     <string name="label_decrease">Decrease</string>
-    <string name="work_in_progress">This is currently work in progress</string>
-    <string name="grab_beverage">Grab a beverage and check back later!</string>
+    <string name="work_in_progress">Work in progress</string>
+    <string name="grab_beverage">Fata icyo kunywa mu gihe ugitegereje!</string>
     <string name="see_more">SEE MORE</string>
     <string name="see_less">SEE LESS</string>
     <string name="remove_item">Remove Item</string>
@@ -76,5 +65,30 @@
     <string name="rating">Rating</string>
     <string name="alphabetical">Alphabetical</string>
     <string name="close">Close</string>
+
+    <!-- Destinations Screen -->
+    <string name="label_primary_destination">Primary Destination</string>
+    <string name="label_secondary_destination">Secondary Destination</string>
+    <string name="label_add_destination">Add Destination</string>
+
+    <string name="label_hungermeter">Hungermeter</string>
+    <string name="label_how_hungry">how hungry?</string>
+    <string name="placeholder_email">glcode40@gmail.com</string>
+    <string name="favorite">Favorite</string>
+    <string name="your_favorites">Your Favorites</string>
+    <string name="payment">Payment</string>
+    <string name="tell_your_friend">Tell  Your Friend</string>
+    <string name="promotions">Promotions</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Log out</string>
+    <string name="login">Sign In</string>
+    <string name="card_holder_name">Card Holder Name</string>
+    <string name="card_holder_number">Card Number</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="cvc">CVC</string>
+    <string name="snack_name">Snack Name</string>
+    <string name="snack_price">Snack Price</string>
+    <string name="snack_image">Image URL</string>
+
 
 </resources>

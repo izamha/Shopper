@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "980360320756",
+    "firebase_url": "https://snacky-cf667-default-rtdb.firebaseio.com",
+    "project_id": "snacky-cf667",
+    "storage_bucket": "snacky-cf667.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980360320756:android:69174f88cbc99588d2b0a1",
+        "android_client_info": {
+          "package_name": "com.izamha.snacky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980360320756-9n75a196rleqtbgeqrndkbmbp2hfdpo7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.izamha.snacky",
+            "certificate_hash": "a0bdb3b6f0c4be90c69d5f4c1df090807fd7fe1f"
+          }
+        },
+        {
+          "client_id": "980360320756-3cm0hhl59dbk0u4mpui6fcb3olbrf1oi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAOhNYotOytgaz5KW7WI56jkqyaN1zh_kg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980360320756-3cm0hhl59dbk0u4mpui6fcb3olbrf1oi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

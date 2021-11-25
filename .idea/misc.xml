@@ -1,5 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/compose-model-1633802180135.xml" value="0.3870673952641166" />
+        <entry key="../../../../layout/compose-model-1633802228356.xml" value="0.4461538461538462" />
+        <entry key="../../../../layout/compose-model-1633802251158.xml" value="0.5272727272727272" />
+        <entry key="../../../../layout/compose-model-1633802388646.xml" value="1.5142857142857142" />
+        <entry key="../../../../layout/compose-model-1633802894619.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1633803000229.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1633803517684.xml" value="0.2" />
+        <entry key="../../../../layout/compose-model-1633803517689.xml" value="0.1287037037037037" />
+        <entry key="../../../../layout/compose-model-1633805364177.xml" value="1.2727272727272727" />
+        <entry key="../../../../layout/compose-model-1633844969506.xml" value="0.36203703703703705" />
+        <entry key="../../../../layout/compose-model-1633877570612.xml" value="0.2649625935162095" />
+        <entry key="../../../../layout/compose-model-1633955283352.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1633964611762.xml" value="0.45405982905982906" />
+        <entry key="../../../../layout/compose-model-1633969708417.xml" value="0.3592592592592593" />
+        <entry key="../../../../layout/compose-model-1633974623529.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634000178495.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634001328008.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634001461518.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634001572007.xml" value="0.22592592592592592" />
+        <entry key="../../../../layout/compose-model-1634002467568.xml" value="0.12314814814814815" />
+        <entry key="../../../../layout/compose-model-1634198809441.xml" value="0.3861566484517304" />
+        <entry key="../../../../layout/compose-model-1634202124412.xml" value="0.9090909090909091" />
+        <entry key="../../../../layout/compose-model-1634202479530.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634203032664.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634275007463.xml" value="0.1889483065953654" />
+        <entry key="../../../../layout/compose-model-1634278335228.xml" value="0.18" />
+        <entry key="../../../../layout/compose-model-1634278436574.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1634285757582.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1634379346110.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634398080002.xml" value="1.5" />
+        <entry key="../../../../layout/compose-model-1634412244501.xml" value="0.14" />
+        <entry key="../../../../layout/compose-model-1634413181078.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1634470574778.xml" value="0.15" />
+        <entry key="../../../../layout/compose-model-1634470663010.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1634525940415.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634528384498.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634541305489.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1634541649768.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1634547555096.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1634547577087.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634550204545.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634569691421.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634585921265.xml" value="0.7412587412587412" />
+        <entry key="../../../../layout/compose-model-1634588562968.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634588581984.xml" value="0.1889483065953654" />
+        <entry key="../../../../layout/compose-model-1634622094318.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634754774518.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1634759960544.xml" value="0.743006993006993" />
+        <entry key="../../../../layout/compose-model-1634761355403.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1634826427445.xml" value="0.17947635135135134" />
+        <entry key="../../../../layout/compose-model-1634827218375.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1634848776360.xml" value="0.2" />
+        <entry key="../../../../layout/compose-model-1634988758934.xml" value="0.4895238095238095" />
+        <entry key="../../../../layout/compose-model-1635004499693.xml" value="0.4780952380952381" />
+        <entry key="../../../../layout/compose-model-1635061220840.xml" value="0.2351851851851852" />
+        <entry key="../../../../layout/compose-model-1635065163005.xml" value="0.37346221441124783" />
+        <entry key="../../../../layout/compose-model-1635202535021.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1635205028553.xml" value="0.33240740740740743" />
+        <entry key="../../../../layout/compose-model-1635331191253.xml" value="0.24351851851851852" />
+        <entry key="../../../../layout/compose-model-1635387741602.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1635500843049.xml" value="0.1574074074074074" />
+        <entry key="../../../../layout/compose-model-1635606123094.xml" value="0.3592592592592593" />
+        <entry key="../../../../layout/compose-model-1635778027964.xml" value="0.17947635135135134" />
+        <entry key="../../../../layout/compose-model-1635779170565.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1636472354186.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1636623919709.xml" value="0.17947635135135134" />
+        <entry key="../../../../layout/compose-model-1636624987489.xml" value="0.4723809523809524" />
+        <entry key="../../../../layout/compose-model-1636634985557.xml" value="0.42828282828282827" />
+        <entry key="../../../../layout/compose-model-1636641710175.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1637032323970.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1637305445045.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1637306268611.xml" value="0.17947635135135134" />
+        <entry key="../../../../layout/compose-model-1637307778844.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1637444171433.xml" value="0.4990476190476191" />
+        <entry key="app/src/main/res/drawable-night/ic_welcome.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.209375" />
+        <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.19322916666666667" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
