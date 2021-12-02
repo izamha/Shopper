@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,10 +14,13 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
@@ -24,15 +28,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.*
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -42,15 +47,20 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.izamha.snacky.R
+import com.izamha.snacky.model.Snack
+import com.izamha.snacky.model.User
+import com.izamha.snacky.repository.SaveToRoom
 import com.izamha.snacky.ui.MainActivity
 import com.izamha.snacky.ui.SnackyApp
 import com.izamha.snacky.ui.components.FlexibleButton
-import com.izamha.snacky.ui.components.SnackySurface
+import com.izamha.snacky.ui.components.SnackyButton
+import com.izamha.snacky.ui.components.SnackyDivider
 import com.izamha.snacky.ui.components.snackyToast
-import com.izamha.snacky.ui.payment.InputItem
 import com.izamha.snacky.ui.theme.SnackyTheme
 import com.izamha.snacky.viewmodel.SnackViewModel
 import com.izamha.snacky.viewmodel.SnackViewModelFactory
+import com.izamha.snacky.viewmodel.UserViewModel
+import com.izamha.snacky.viewmodel.UserViewModelFactory
 
 @ExperimentalCoilApi
 @ExperimentalPermissionsApi
@@ -69,7 +79,6 @@ class SignInActivity : ComponentActivity() {
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,9 +91,8 @@ class SignInActivity : ComponentActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         setContent {
-
             SnackyTheme {
-                SignInForm(
+                SignUpForm(
                     signIn = { signIn() }
                 )
             }
@@ -162,76 +170,327 @@ class SignInActivity : ComponentActivity() {
         launchHomeActivity.launch(homeIntent)
     }
 
+
     private fun updateUI(user: FirebaseUser?) {}
 
     companion object {
         private const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
+
+    private fun createNewAccount(username: String,
+                                 email: String,
+                                 phoneNumber: String,
+                                 password: String) {
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // verify Email
+                    verifyEmail()
+
+                    // Sign in success, update UI with signed-in user's info
+                    updateUserInfoAndUI()
+
+                }
+            }
+
+    }
+
+    private fun updateUserInfoAndUI() {
+        TODO("Not yet implemented")
+    }
+
+    private fun verifyEmail() {
+        val mUser = auth.currentUser
+        mUser!!.sendEmailVerification()
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Email verification sent to ${mUser.email}",
+                        Toast.LENGTH_LONG).show()
+                } else {
+                    Log.e(TAG, "sendEmailVerification", task.exception)
+                    Toast.makeText(
+                        this, "Failed to send verification email to " + mUser.email,
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+    }
+
 }
 
+@ExperimentalPermissionsApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun SignInForm(
+fun SignUpForm(
     modifier: Modifier = Modifier,
     signIn: () -> Unit
 ) {
 
     var username by remember { mutableStateOf(TextFieldValue()) }
+    var email by remember { mutableStateOf(TextFieldValue()) }
+    var phoneNumber by remember { mutableStateOf(TextFieldValue()) }
     var password by remember { mutableStateOf(TextFieldValue()) }
+    var isPasswordVisible by remember { mutableStateOf(false) }
+    val isClicked = remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-            painter = painterResource(id = R.drawable.placeholder),
-            contentDescription = null,
-            modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.Crop,
-        )
-
-        // Text(text = "Sign Up and get rid of hunger!", fontSize = 18.sp)
-
-        InputItem(
-            textFieldValue = username,
-            onTextChanged = { username = it },
-            label = "Username",
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            trailingIcon = {}
-        )
-
-        InputItem(
-            textFieldValue = password,
-            onTextChanged = { password = it },
-            label = "Password",
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            trailingIcon = {}
-        )
-        Spacer(
-            modifier = modifier
-                .fillMaxWidth()
-                .size(24.dp)
-        )
-
-        FlexibleButton(
-            onClicked = signIn,
-            backgroundColor = Color.White,
-        )
+    val isFormValid by derivedStateOf {
+        username.text.isNotBlank() && password.text.length <= 17
     }
 
-//    SnackySurface(
-//        color = Color.LightGray,
-//        shape = CircleShape,
-//        elevation = 0.dp,
-//        modifier = modifier
-//            .padding(vertical = 16.dp)
-//            .size(220.dp)
-//            .fillMaxSize()
-//    ) {
-//
-//    }
+    Scaffold(backgroundColor = Color.Gray) {
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+//            Image(
+//                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+//                contentDescription = "App Logo",
+//                modifier = modifier
+//                    .weight(1f)
+//                    .size(100.dp),
+//                colorFilter = ColorFilter.tint(Color.White)
+//            )
+            Card(
+                modifier = modifier
+                    .weight(2f)
+                    .padding(8.dp),
+                shape = RoundedCornerShape(32.dp),
+                backgroundColor = SnackyTheme.colors.uiBackground,
+            ) {
+                Column(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(32.dp)
+                        .background(Color.White)
+                ) {
+                    Text(
+                        text = "Create an Account!",
+                        color = Color.DarkGray,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp,
+                        modifier = modifier.padding(vertical = 16.dp)
+                    )
 
+                    Spacer(modifier = modifier.weight(1f))
+
+                    Column(
+                        modifier = modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        OutlinedTextField(
+                            modifier = modifier.fillMaxWidth(),
+                            value = username,
+                            onValueChange = { username = it },
+                            label = { Text(text = "Username") },
+                            singleLine = true,
+                            trailingIcon = {
+                                if (username.text.isNotBlank()) {
+                                    IconButton(onClick = { username = TextFieldValue("") }) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Clear,
+                                            contentDescription = "Clear Icon"
+                                        )
+                                    }
+                                }
+                            }
+                        )
+
+                        Spacer(modifier = modifier.height(8.dp))
+
+                        OutlinedTextField(
+                            modifier = modifier.fillMaxWidth(),
+                            value = email,
+                            onValueChange = { email = it },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Email,
+                                imeAction = ImeAction.Next
+                            ),
+                            label = { Text(text = "Email") },
+                            singleLine = true,
+                            trailingIcon = {
+                                if (email.text.isNotBlank()) {
+                                    IconButton(onClick = { email = TextFieldValue("") }) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Clear,
+                                            contentDescription = "Clear Icon"
+                                        )
+                                    }
+                                }
+                            }
+                        )
+
+                        Spacer(modifier = modifier.height(8.dp))
+
+
+                        OutlinedTextField(
+                            modifier = modifier.fillMaxWidth(),
+                            value = phoneNumber,
+                            onValueChange = { phoneNumber = it },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Number,
+                                imeAction = ImeAction.Next
+                            ),
+                            label = { Text(text = "Phone Number") },
+                            singleLine = true,
+                            trailingIcon = {
+                                if (phoneNumber.text.isNotBlank()) {
+                                    IconButton(onClick = { phoneNumber = TextFieldValue("") }) {
+                                        Icon(
+                                            imageVector = Icons.Filled.Clear,
+                                            contentDescription = "Clear Icon"
+                                        )
+                                    }
+                                }
+                            }
+                        )
+
+
+                        Spacer(modifier = modifier.height(12.dp))
+
+                        OutlinedTextField(
+                            modifier = modifier.fillMaxWidth(),
+                            value = password,
+                            onValueChange = { password = it },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Password,
+                                imeAction = ImeAction.Done
+                            ),
+                            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                            label = { Text(text = "Password") },
+                            singleLine = true,
+                            trailingIcon = {
+                                IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                                    Icon(
+                                        imageVector = if (isPasswordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                                        contentDescription = "Clear Icon"
+                                    )
+                                }
+                            }
+                        )
+
+                        Spacer(modifier = modifier.height(16.dp))
+
+                        // Create a user account
+                        SnackyButton(
+                            enabled = isFormValid,
+                            modifier = modifier.padding(vertical = 16.dp),
+                            onClick = {
+                                   isClicked.value = true
+
+                                // Create the OutlinedTextField
+//                                username = TextFieldValue("")
+//                                email = TextFieldValue("")
+//                                phoneNumber = TextFieldValue("")
+//                                email = TextFieldValue("")
+
+                                // Navigate to LoginActivity
+                            },
+
+                        ) {
+                            Text(modifier = modifier,
+                                text = "Sign Up", fontSize = 24.sp)
+                        }
+
+                        if (isClicked.value) {
+                            CreateUserAccount(
+                                username = username.text,
+                                email = email.text,
+                                phoneNumber = phoneNumber.text,
+                                password = password.text
+                            )
+                            // snackyToast(context = context, "Attempting to save to DB..")
+                        }
+
+                        Spacer(modifier = modifier.weight(1f))
+
+                        FlexibleButton(
+                            onClicked = signIn,
+                            backgroundColor = Color.White,
+                        )
+
+                        Spacer(modifier = modifier.weight(1f))
+
+                        Row(
+                            modifier = modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+
+                            TextButton(onClick = { /*TODO*/ }) {
+                                Text(text = "Already have an account?", color = Color.Gray)
+                            }
+                            TextButton(onClick = {
+                                val signInIntent = Intent(context, LoginActivity::class.java)
+                                signInIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                                context.startActivity(signInIntent)
+                            }) {
+                                Text(text = "Sign In")
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+@ExperimentalCoilApi
+@ExperimentalPermissionsApi
+@ExperimentalMaterialApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@Composable
+fun CreateUserAccount(
+    username: String,
+    email: String,
+    phoneNumber: String,
+    password: String
+) {
+    val context = LocalContext.current
+    val userViewModel: UserViewModel = viewModel(
+        factory = UserViewModelFactory(context.applicationContext as Application)
+    )
+
+    val user = User(
+        username = username,
+        email = email,
+        phoneNumber = phoneNumber,
+        password = password
+    )
+
+    try {
+        userViewModel.createUser(user = user)
+        snackyToast(context = context, "Successfully created an account!")
+
+        // After successful User Creation, go to Login
+        val loginIntent = Intent(context, LoginActivity::class.java)
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        context.startActivity(loginIntent)
+
+    } catch (e: Exception) {
+        snackyToast(context, "${e.message}")
+    }
+
+}
+
+
+
+@ExperimentalPermissionsApi
+@ExperimentalComposeUiApi
+@ExperimentalAnimationApi
+@ExperimentalCoilApi
+@ExperimentalMaterialApi
+@Composable
+private fun OpenLoginActivity() {
+    val context = LocalContext.current
+    val signInIntent = Intent(context, LoginActivity::class.java)
+    context.startActivity(signInIntent)
 }

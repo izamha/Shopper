@@ -30,6 +30,13 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:label="@string/common_signin_button_text"
+            android:theme="@style/Theme.Snacky"
+            android:exported="true">
+        </activity>
+
     </application>
 
 </manifest>

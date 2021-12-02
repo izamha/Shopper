@@ -74,7 +74,7 @@ fun SnackDetail(
 
         val snack = remember(snackId) { snackValue }
         val related = remember(snackId) { SnackRepo.getRelated(snackId) }
-        val newCart = callToRoom()
+        val newCart = if (callToRoom().isNotEmpty()) callToRoom() else snacks
 
 
         Box(Modifier.fillMaxSize()) {
@@ -98,7 +98,7 @@ fun SnackDetail(
         )
         val snack = remember(snackId) { snackValue }
         val related = remember(snackId) { SnackRepo.getRelated(snackId) }
-        val newCart = callToRoom()
+        val newCart = if (callToRoom().isNotEmpty()) callToRoom() else snacks
 
         Box(Modifier.fillMaxSize()) {
             val scroll = rememberScrollState(0)

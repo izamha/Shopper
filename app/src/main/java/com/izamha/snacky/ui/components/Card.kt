@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.izamha.snacky.ui.theme.SnackyTheme
 
 @Composable
-fun ShopperCard(
+fun SnackyCard(
     modifier: Modifier = Modifier,
     shape: Shape = MaterialTheme.shapes.medium,
     color: Color = SnackyTheme.colors.uiBackground,
@@ -42,7 +42,7 @@ fun ShopperCard(
 @Composable
 private fun CardPreview() {
     SnackyTheme {
-        ShopperCard {
+        SnackyCard {
             Text(text = "Demo", modifier = Modifier.padding(16.dp))
         }
     }

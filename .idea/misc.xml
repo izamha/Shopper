@@ -77,9 +77,20 @@
         <entry key="../../../../layout/compose-model-1637306268611.xml" value="0.17947635135135134" />
         <entry key="../../../../layout/compose-model-1637307778844.xml" value="0.1" />
         <entry key="../../../../layout/compose-model-1637444171433.xml" value="0.4990476190476191" />
+        <entry key="../../../../layout/compose-model-1638359101474.xml" value="0.3861566484517304" />
+        <entry key="../../../../layout/compose-model-1638359101829.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1638397843398.xml" value="0.6583850931677019" />
+        <entry key="../../../../layout/compose-model-1638399169020.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1638433061287.xml" value="0.3870673952641166" />
+        <entry key="../../../../layout/compose-model-1638433062369.xml" value="0.37346221441124783" />
+        <entry key="../../../../layout/compose-model-1638467753142.xml" value="0.37258347978910367" />
+        <entry key="../../../../layout/compose-model-1638468521627.xml" value="0.2796296296296296" />
+        <entry key="../../../../layout/compose-model-1638469465302.xml" value="0.13055555555555556" />
         <entry key="app/src/main/res/drawable-night/ic_welcome.xml" value="0.209375" />
+        <entry key="app/src/main/res/drawable-v26/ic_launcher_foreground.xml" value="0.209375" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.209375" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.19322916666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.209375" />
       </map>
     </option>
   </component>

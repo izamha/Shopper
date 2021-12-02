@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.firebase.auth.FirebaseAuth
@@ -21,6 +22,8 @@ import com.izamha.snacky.model.Snack
 import com.izamha.snacky.ui.auth.SignInActivity
 import com.izamha.snacky.viewmodel.SnackViewModel
 import com.izamha.snacky.viewmodel.SnackViewModelFactory
+import com.izamha.snacky.viewmodel.UserViewModel
+import com.izamha.snacky.viewmodel.UserViewModelFactory
 import kotlinx.coroutines.delay
 
 @ExperimentalPermissionsApi
@@ -42,6 +45,10 @@ class MainActivity : ComponentActivity() {
 
         val snackViewModel by viewModels<SnackViewModel> {
             SnackViewModelFactory((this.applicationContext as Application))
+        }
+
+        val userViewModel by viewModels<UserViewModel> {
+            UserViewModelFactory(this.applicationContext as Application)
         }
 
 

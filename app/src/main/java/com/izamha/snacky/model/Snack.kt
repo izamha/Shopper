@@ -89,7 +89,7 @@ val snacks = listOf(
         id = 2L,
         name = "Cakes",
         tagline = "A tag line",
-        imageUrl = "https://source.unsplash.com/Yc5sL-ejk6U",
+        imageUrl = "https://images.unsplash.com/photo-1635043774930-1bed17b72186?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=435&q=80",
         price = 150
     ),
     Snack(

@@ -51,6 +51,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import coil.annotation.ExperimentalCoilApi
 import com.izamha.snacky.R
 import com.izamha.snacky.model.OrderLine
 import com.izamha.snacky.model.SnackCollection
@@ -131,6 +132,8 @@ fun Cart(
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @Composable
 private fun CartContent(
@@ -256,7 +259,7 @@ private fun CartContent(
         }
         item {
             val subtotal = orderLines.map { it.snack.price!! * it.count }.sum()
-            val shippingCosts = if (subtotal <= 0) 0L else 390L
+            val shippingCosts = if (subtotal <= 0) 0L else 190L
             SummaryItem(
                 subtotal = subtotal,
                 shippingCosts = shippingCosts
@@ -273,6 +276,8 @@ private fun CartContent(
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
+@ExperimentalCoilApi
 @Composable
 fun CartItem(
     orderLine: OrderLine,

@@ -17,6 +17,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -45,6 +47,7 @@ fun AddPayment(
     var expiryNumber by remember { mutableStateOf(TextFieldValue()) }
     var cvcNumber by remember { mutableStateOf(TextFieldValue()) }
     var isMoMoPay by remember { mutableStateOf(true) }
+    var paymentAmount by remember { mutableStateOf(0) }
 
     SnackyScaffold {
         Spacer(
@@ -70,6 +73,12 @@ fun AddPayment(
                 ) {
 
                     item {
+                        Text(
+                            text = "You are going to pay: $paymentAmount",
+                            fontSize = 28.sp,
+                            fontFamily = FontFamily.Cursive,
+                            fontWeight = FontWeight.Bold
+                        )
                         InputItem(
                             textFieldValue = nameText,
                             label = stringResource(id = R.string.card_holder_name),
@@ -154,7 +163,7 @@ fun AddPayment(
                         .fillMaxSize()
                         .padding(16.dp),
                 ) {
-                    Text(text = "We are Using MoMo Pay, baby!", fontSize = 32.sp)
+                    Text(text = "We are Using MoMo Pay!", fontSize = 32.sp)
                     Button(onClick = { isMoMoPay = !isMoMoPay }) {
                         Text(text = "Show Stuff")
                     }

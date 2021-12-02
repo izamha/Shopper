@@ -124,6 +124,9 @@ object SnackRepo {
     }
 
 
+    fun getAdmin(email: String): Boolean {
+        return adminEmails.contains(email)
+    }
     fun getRelated(@Suppress("UNUSED_PARAMETER") snackId: Long) = related
     fun getInspiredByCart() = inspiredByCart
     fun getFilters() = filters
@@ -144,6 +147,10 @@ object SnackRepo {
 /**
  * Static data
  */
+
+private val adminEmails = listOf(
+    "glcode40@gmail.com",
+)
 
 private val tastyTreats = SnackCollection(
     id = 1L,
@@ -199,12 +206,6 @@ private val related = listOf(
 val cart = mutableListOf(
     OrderLine(snacks[1], 3),
 )
-
-@Composable
-fun CreateCart() {
-    val newCart = callToRoom()
-    OrderLine(newCart[1], 3)
-}
 
 data class OrderLine(
     val snack: Snack,

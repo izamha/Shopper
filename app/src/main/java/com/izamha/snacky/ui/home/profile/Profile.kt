@@ -1,8 +1,10 @@
 package com.izamha.snacky.ui.home.profile
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.util.Log
 import android.widget.Toast
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -54,6 +56,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.izamha.snacky.ui.auth.LoginActivity
 import com.izamha.snacky.ui.components.*
 import com.izamha.snacky.ui.rememberAppStateHolder
 import kotlin.math.max
@@ -71,6 +74,9 @@ private val CollapsedImageSize = 75.dp //150.dp
 private val HzPadding = Modifier.padding(horizontal = 24.dp)
 
 
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+@ExperimentalCoilApi
 @ExperimentalPermissionsApi
 @ExperimentalComposeUiApi
 @Composable
@@ -107,6 +113,9 @@ fun Profile(
 
 }
 
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
+@ExperimentalPermissionsApi
 @ExperimentalCoilApi
 @ExperimentalComposeUiApi
 @Composable
@@ -125,6 +134,9 @@ fun NewHeader(
 }
 
 
+@ExperimentalPermissionsApi
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
 @ExperimentalCoilApi
 @ExperimentalComposeUiApi
 @Composable
@@ -142,10 +154,12 @@ fun ProfileContent(
     val mAuth = FirebaseAuth.getInstance()
     val currentUser = mAuth.currentUser
 
+    val isAdmin = remember { SnackRepo.getAdmin(currentUser?.email!!) }
+
 
     SnackyScaffold(
         floatingActionButton = {
-            if (currentUser != null) {
+            if (isAdmin) {
                 FloatingActionButton(
                     onClick = {
                         try {
@@ -174,18 +188,25 @@ fun ProfileContent(
 
                 Row(modifier = modifier.padding(16.dp)) {
                     SnackImage(
-                        imageUrl = imageUrl,
+                        imageUrl = currentUser?.photoUrl?.toString()
+                            ?: "https://images.unsplash.com/photo-1589149098258-3e9102cd63d3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=739&q=80",
                         contentDescription = null,
                         modifier = modifier
                             .size(100.dp)
                     )
+
                     Column(
                         modifier = modifier
                             .padding(8.dp)
                             .fillMaxWidth()
                     ) {
                         Text(
-                            text = if (currentUser != null) currentUser.displayName!! else "Gilbert izamha",
+                            modifier = modifier.padding(horizontal = 16.dp),
+                            text = if (isAdmin) "Admin" else "Not Admin"
+                        )
+                        Text(
+                            text = if (currentUser != null) currentUser.displayName!! else "Placeholder",
+                            overflow = TextOverflow.Ellipsis,
                             style = MaterialTheme.typography.h5,
                             color = SnackyTheme.colors.textPrimary,
                             fontSize = 18.sp,
@@ -195,6 +216,7 @@ fun ProfileContent(
                                     top = 16.dp, bottom = 8.dp
                                 )
                                 .align(Alignment.Start)
+
                         )
 
                         Text(
@@ -259,14 +281,14 @@ fun ProfileContent(
                 SnackyDivider(
                     thickness = 1.dp, modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 32.dp)
+                        .padding(horizontal = 16.dp, vertical = 16.dp)
                 )
 
 
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 32.dp, top = 24.dp)
+                        .padding(start = 32.dp, top = 8.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.FavoriteBorder,
@@ -385,20 +407,28 @@ fun ProfileContent(
                         .padding(start = 32.dp, top = 16.dp),
                 ) {
                     if (currentUser != null) {
-                        Icon(
-                            imageVector = Icons.Default.SettingsPower,
-                            tint = Color.Red,
-                            contentDescription = stringResource(
-                                id = R.string.logout
+
+                        TextButton(onClick = {
+                            mAuth.signOut()
+                            val loginIntent = Intent(context, LoginActivity::class.java)
+                            loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                            context.startActivity(loginIntent)
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.SettingsPower,
+                                tint = Color.Red,
+                                contentDescription = stringResource(
+                                    id = R.string.logout
+                                )
                             )
-                        )
-                        Text(
-                            text = stringResource(id = R.string.logout),
-                            style = MaterialTheme.typography.subtitle1,
-                            fontSize = 16.sp,
-                            color = Color.Red,
-                            modifier = Modifier.padding(start = 16.dp)
-                        )
+                            Text(
+                                text = stringResource(id = R.string.logout),
+                                style = MaterialTheme.typography.subtitle1,
+                                fontSize = 16.sp,
+                                color = Color.Red,
+                                modifier = Modifier.padding(start = 16.dp)
+                            )
+                        }
                     } else {
                         Icon(
                             imageVector = Icons.Outlined.Login,
@@ -630,6 +660,9 @@ fun RetrieveFirebaseContent() {
 }
 
 
+@ExperimentalAnimationApi
+@ExperimentalMaterialApi
+@ExperimentalCoilApi
 @ExperimentalPermissionsApi
 @ExperimentalComposeUiApi
 @Preview("default")
